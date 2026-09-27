@@ -14,11 +14,20 @@ import json
 def main():
     print("Loading Financial PhraseBank dataset...")
     # Load dataset
-    dataset = load_dataset("financial_phrasebank", "sentences_50agree")
-    df = pd.DataFrame(dataset['train'])
+    with open("FinancialPhraseBank-v1.0/Sentences_50Agree.txt", "r", encoding="iso-8859-1") as f:
+        lines = f.readlines()
+    sentences, labels = [], []
+    for line in lines:
+        if '@' in line:
+            parts = line.strip().rsplit('@', 1)
+            sentences.append(parts[0])
+            labels.append(parts[1])
+    df = pd.DataFrame({'sentence': sentences, 'label': labels})
     
     # Map labels: 0: negative, 1: neutral, 2: positive
-    # Financial PhraseBank labels: 0: negative, 1: neutral, 2: positive (typically, we will check)
+    # Our labels are currently strings: 'negative', 'neutral', 'positive'
+    label_mapping = {'negative': 0, 'neutral': 1, 'positive': 2}
+    df['label'] = df['label'].map(label_mapping)
     X = df['sentence']
     y = df['label']
     

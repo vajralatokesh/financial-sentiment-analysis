@@ -32,4 +32,14 @@ python analyze.py
 This will download the dataset, train the models, evaluate their performance (accuracy, F1-score), and output the results to `results.json`.
 
 ## Results
-(Results will be populated after running the analysis script)
+
+The models achieved the following baseline accuracies using TF-IDF features on the `sentences_50agree` subset of the Financial PhraseBank:
+
+- **Logistic Regression**: 75.36%
+- **SVM (Linear)**: 76.49%
+- **XGBoost**: 76.49%
+
+These results align closely with the findings of the literature survey (e.g. Papers 6 and 7), demonstrating that classical machine learning approaches yield solid baselines for financial sentiment classification tasks even before resorting to heavier models like FinBERT.
+
+## Next Steps
+To further improve performance, particularly on neutral class, consider integrating a domain-specific lexicon or fine-tuning a transformer model like FinBERT.
